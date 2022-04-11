@@ -4,18 +4,21 @@ import Die from "./components/Die";
 function App() {
   const [dice, setDice] = useState(allNewDice());
 
-  const dieElements = dice.map((die, index) => {
-    return <Die key={die.id} value={die} />;
+  const dieElements = dice.map((die) => {
+    return <Die key={die.id} value={die.value} />;
   });
 
   function rollDice() {
     setDice(allNewDice());
   }
+
   function allNewDice() {
     const randomNumberArray = [];
     for (let i = 0; i < 10; i++) {
-      const randomNumber = Math.ceil(Math.random() * 6) + 1;
-      randomNumberArray.push(randomNumber);
+      randomNumberArray.push({
+        value: Math.ceil(Math.random() * 6) + 1,
+        isHeld: false,
+      });
     }
     return randomNumberArray;
   }
