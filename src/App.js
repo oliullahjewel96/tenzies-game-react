@@ -1,6 +1,15 @@
 import Die from "./components/Die";
 
 function App() {
+  function allNewDice() {
+    const randomNumberArray = [];
+    for (let i = 0; i < 10; i++) {
+      const randomNumber = Math.ceil(Math.random() * 6) + 1;
+      randomNumberArray.push(randomNumber);
+    }
+    return randomNumberArray;
+  }
+  console.log(allNewDice());
   return (
     <div className="App">
       <div className="main">
