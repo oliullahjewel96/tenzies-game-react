@@ -5,11 +5,22 @@ function App() {
   const [dice, setDice] = useState(allNewDice());
 
   const dieElements = dice.map((die) => {
-    return <Die key={die.id} value={die.value} isHeld={die.isHeld} />;
+    return (
+      <Die
+        key={die.id}
+        value={die.value}
+        isHeld={die.isHeld}
+        holdDice={() => holdDice(die.id)}
+      />
+    );
   });
 
   function rollDice() {
     setDice(allNewDice());
+  }
+
+  function holdDice(id) {
+    console.log(id);
   }
 
   function allNewDice() {
