@@ -13,9 +13,35 @@ body {
 }
 
 .main {
-    width: 620px;
-    height: 620px;
+    height: 400px;
+    width: 400px;
     background: #f5f5f5;
     border-radius: 10px;
     margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.die-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.die-face {
+    height: 45px;
+    width: 45px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.die-face h2 {
+    font-size: 30px;
 }
