@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Die from "./components/Die";
-
+import { v4 as uuidv4 } from "uuid";
 function App() {
   const [dice, setDice] = useState(allNewDice());
 
   const dieElements = dice.map((die) => {
-    return <Die key={die.id} value={die.value} />;
+    return <Die key={die.id} value={die.value} isHeld={die.isHeld} />;
   });
 
   function rollDice() {
@@ -18,6 +18,7 @@ function App() {
       randomNumberArray.push({
         value: Math.ceil(Math.random() * 6) + 1,
         isHeld: false,
+        id: uuidv4(),
       });
     }
     return randomNumberArray;
