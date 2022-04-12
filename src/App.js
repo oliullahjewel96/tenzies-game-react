@@ -11,7 +11,6 @@ function App() {
     const allSameValue = dice.every((die) => die.value === firstValue);
     if (allHeld && allSameValue) {
       setTenzies(true);
-      console.log("You've won the game!");
     }
   });
   const dieElements = dice.map((die) => {
@@ -32,15 +31,20 @@ function App() {
     };
   }
   function rollDice() {
-    setDice((oldDice) =>
-      oldDice.map((die) => {
-        if (die.isHeld) {
-          return die;
-        } else {
-          return generateNewDie();
-        }
-      })
-    );
+    if (!tenzies) {
+      setDice((oldDice) =>
+        oldDice.map((die) => {
+          if (die.isHeld) {
+            return die;
+          } else {
+            return generateNewDie();
+          }
+        })
+      );
+    } else {
+      setTenzies(false);
+      setDice(allNewDice());
+    }
   }
 
   function holdDice(id) {
@@ -68,7 +72,7 @@ function App() {
           current value between rolls.
         </p>
         <div className="die-container">{dieElements}</div>
-        <button onClick={rollDice}>Roll</button>
+        <button onClick={rollDice}>{tenzies ? "New Game" : "Roll"}</button>
       </div>
     </div>
   );
