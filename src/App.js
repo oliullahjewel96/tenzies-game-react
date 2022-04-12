@@ -14,23 +14,37 @@ function App() {
       />
     );
   });
-
+  function generateNewDie() {
+    return {
+      value: Math.ceil(Math.random() * 6) + 1,
+      isHeld: false,
+      id: uuidv4(),
+    };
+  }
   function rollDice() {
-    setDice(allNewDice());
+    setDice((oldDice) =>
+      oldDice.map((die) => {
+        if (die.isHeld) {
+          return die;
+        } else {
+          return generateNewDie();
+        }
+      })
+    );
   }
 
   function holdDice(id) {
-    console.log(id);
+    setDice((oldDice) =>
+      oldDice.map((die) => {
+        return die.id === id ? { ...die, isHeld: !die.isHeld } : die;
+      })
+    );
   }
 
   function allNewDice() {
     const randomNumberArray = [];
     for (let i = 0; i < 10; i++) {
-      randomNumberArray.push({
-        value: Math.ceil(Math.random() * 6) + 1,
-        isHeld: false,
-        id: uuidv4(),
-      });
+      randomNumberArray.push(generateNewDie());
     }
     return randomNumberArray;
   }
