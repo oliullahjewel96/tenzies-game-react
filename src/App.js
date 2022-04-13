@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 function App() {
   const [dice, setDice] = useState(allNewDice());
   const [tenzies, setTenzies] = useState(false);
+  const [rollCount, setRollCount] = useState(0);
 
   useEffect(() => {
     const allHeld = dice.every((die) => die.isHeld);
@@ -19,19 +20,22 @@ function App() {
         key={die.id}
         value={die.value}
         isHeld={die.isHeld}
+        rolled={rollCount}
         holdDice={() => holdDice(die.id)}
       />
     );
   });
   function generateNewDie() {
     return {
-      value: Math.ceil(Math.random() * 6) + 1,
+      value: Math.ceil(Math.random() * 6),
       isHeld: false,
       id: uuidv4(),
     };
   }
   function rollDice() {
     if (!tenzies) {
+      setRollCount((prevCount) => prevCount + 1);
+
       setDice((oldDice) =>
         oldDice.map((die) => {
           if (die.isHeld) {
@@ -44,6 +48,7 @@ function App() {
     } else {
       setTenzies(false);
       setDice(allNewDice());
+      setRollCount(0);
     }
   }
 
@@ -72,6 +77,12 @@ function App() {
           current value between rolls.
         </p>
         <div className="die-container">{dieElements}</div>
+
+        {tenzies && (
+          <div className="roll-count">
+            You've rolled {rollCount} times to finish the game
+          </div>
+        )}
         <button onClick={rollDice}>{tenzies ? "New Game" : "Roll"}</button>
       </div>
     </div>
