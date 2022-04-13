@@ -80,7 +80,7 @@ function App() {
 
         {tenzies && (
           <div className="roll-count">
-            You've rolled {rollCount} times to finish the game
+            You've rolled {rollCount} times to win the game
           </div>
         )}
         <button onClick={rollDice}>{tenzies ? "New Game" : "Roll"}</button>
