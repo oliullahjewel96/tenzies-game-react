@@ -12,7 +12,7 @@ function App() {
     if (allHeld && allSameValue) {
       setTenzies(true);
     }
-  });
+  }[dice]);
   const dieElements = dice.map((die) => {
     return (
       <Die
