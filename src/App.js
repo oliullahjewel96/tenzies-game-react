@@ -5,7 +5,7 @@ function App() {
   const [dice, setDice] = useState(allNewDice());
   const [tenzies, setTenzies] = useState(false);
   const [rollCount, setRollCount] = useState(0);
-
+  const [seconds, setSeconds] = useState(0);
   useEffect(() => {
     const allHeld = dice.every((die) => die.isHeld);
     const firstValue = dice[0].value;
@@ -14,6 +14,17 @@ function App() {
       setTenzies(true);
     }
   }, [dice]);
+
+  useEffect(() => {
+    let timer;
+    if (!tenzies) {
+      timer = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds + 1);
+      }, 1000);
+      setSeconds(0);
+    }
+    return () => clearInterval(timer);
+  }, [tenzies]);
   const dieElements = dice.map((die) => {
     return (
       <Die
@@ -72,6 +83,10 @@ function App() {
     <div className="App">
       <div className="main">
         <h1 className="title">Tenzies</h1>
+        <h3>{seconds}s</h3>
+        {tenzies && (
+          <p className="timer"> You took {seconds} seconds to win the game</p>
+        )}
         <p className="instructions">
           Roll until all dice are the same.Click Each die to freeze it at its
           current value between rolls.
